@@ -32,3 +32,5 @@ menu SPA App using backbone.js
 4. If there are still no errors, open up the url: ```localhost:3000```
 5. My application will be yours to explore and destroy as you see fit.
 
+####Or better yet, come see the diner right [here](45.55.154.180:3000/)
+
