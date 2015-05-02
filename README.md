@@ -9,19 +9,19 @@ menu SPA App using backbone.js
 
 ## API's and modules used
 ###Modules
-* express
+* [express](http://expressjs.com/)
 
-  Express allows you to
+  Express allows you to create a web application framework
 
-* bodyParser
+* [bodyParser](https://www.npmjs.com/package/body-parser)
 
-  bodyparser allows you to
+  bodyparser allows you to parse through bodies and allows you to JSON parse
 
-* sqlite3
+* [sqlite3](https://www.npmjs.com/package/sqlite3)
 
-  sqlite3 allows you to
+  sqlite3 allows you to access your db and perform query and parameter binding
 
-* cors
+* [cors](https://www.npmjs.com/package/cors)
 
-  cors allows you to
+  cors allows you to connect to share resources from various origins on a dynamic or static site
 
