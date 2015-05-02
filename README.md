@@ -29,6 +29,6 @@ menu SPA App using backbone.js
 1. Fork it from my repo
 2. Go into the folder of the downloaded application and run ```npm install``` in the highest level directory
 3. If you see no errors, tpye in ```node server.js```
-4. If there are still no errors, open up the url: ```[localhost:3000](localhost:3000) ```
+4. If there are still no errors, open up the url: ```localhost:3000```
 5. My application will be yours to explore and destroy as you see fit.
 
