@@ -1,4 +1,3 @@
-$(document).ready(function() {
   var DishView = Backbone.View.extend({
     tagName: 'li', 
     template: _.template($('#dishes').html()), 
@@ -51,9 +50,11 @@ $(document).ready(function() {
   });
 
   var CreateDishView = Backbone.View.extend({
-    validation: {name: {required: true}},
     el: "#addDishForm", 
     events: {"click button#addNewDish": "createDish"},
+    initialize: function() {
+      Backbone.Validation.bind(this);
+    },
 
     createDish: function() {
 
@@ -72,9 +73,9 @@ $(document).ready(function() {
     }
   });
 
-  new DishesView({collection: dishes});
+  
   new CreateDishView({collection: dishes});
-});
+
 
 
 

@@ -36,6 +36,6 @@ var DishesCollection = Backbone.Collection.extend({
 });
 
 var dishes = new DishesCollection();
-dishes.fetch();
+//dishes.fetch();
 
 

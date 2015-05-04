@@ -20,7 +20,14 @@
 
 var Dish = Backbone.Model.extend({
   urlRoot: '/dishes',
-  initialize: function(){
-    console.log("Created a dish");
+  validation: {
+    name: {required: true, msg: 'Please enter a valid name'},
+    price: {required: true}
+    //'dish.name': {required: true}//,
+    //age: {range: [1, 80]},
+    //email: {pattern: 'email'},
+    //someAttribute: function(value) {
+      //if(value !== 'somevalue') {return 'Error message';}
+    //}
   }
 });

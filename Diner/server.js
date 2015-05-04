@@ -1,4 +1,8 @@
+var backbone = require('backbone'),
+    _ = require('underscore'),
+    validation = require('backbone-validation');
 
+_.extend(backbone.Model.prototype, validation.mixin);
 var express = require('express');
 var bodyParser = require('body-parser');
 var sqlite3 = require("sqlite3").verbose();
