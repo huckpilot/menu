@@ -3,9 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-  <title></title>
+  <title>Diner</title>
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
 
+  <!-- ========= -->
+  <!-- HTML -->
+  <!-- ========= -->
+  <section id="dinerapp">
+    <header id="header">
+      <h1>Diner</h1>
+      <div id = "addDishForm">
+        <input type="text" id="newDishName" placeholder="Add dish to menu" autofocus>
+        <input type="number" id="newDishPrice" placeholder="Add dish menu price">
+        <input type="text" id="newDishImage" placeholder="Add dish image">
+        <button id="addNewDish">add dish</button>
+      </div>
+     <div>
+        <a href="#/">Full Menu</a> 
+        <a href="#/">Food category #1</a>
+        <a href="#/">Food category #2</a>
+        <a href="#/">Food category #3</a>
+        <a href="#/order">Your order</a>
+      </div>
+    </header>
+    <section id="main">
+      <ul id="dishList"></ul>
+    </section>
+  </section>
+
+  <!-- Templates -->
+  <script type="text/template" id="dishes">
+    <span class="view">
+      <%= dish.name %> <%= dish.price %> <img src ="<%= dish.image_url %>">
+      <button class="editButton" value=<%= dish.name %>></button>
+      <button class="destroyButton">remove dish</button>
+    </span>
+    <span class="editDish" style = "display: none">
+      <input type = "text" id = newName<%= dish.id %> placeholder="Change menu item" autofocus>
+      <input type = "text" id = newPrice<%= dish.id %> placeholder="Change price" >
+      <input type = "text" id = newImageUrl<%= dish.id %> placeholder="Add new dish image url" >
+      <button class = "updateButton">Update</button>
+    </span>
+  </script>
+
+
+  <!-- ========= -->
+  <!-- Libraries -->
+  <!-- ========= -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+  <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+  <!-- =============== -->
+  <!-- Javascript code -->
+  <!-- =============== -->
+  <script type="text/javascript">
+    'use strict';
+    // //alert("hey");
+    var app = {}; // create namespace for our app
+  </script>
+
+  <!-- Backbone directories -->
+  <script src = "./models/models.js"></script>
+  <script src = "./collections/collections.js"></script>
+  <script src = "./views/views.js"></script>
+  <script src = "./routes/routes.js"></script>  
 </body>
 </html>
