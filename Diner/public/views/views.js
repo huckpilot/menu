@@ -1,4 +1,4 @@
-  var DishView = Backbone.View.extend({
+var DishView = Backbone.View.extend({
     tagName: 'li', 
     template: _.template($('#dishes').html()), 
     events: {
@@ -12,9 +12,13 @@
       var newPrice = this.$('#newPrice' + this.model.id).val();
       var newImageUrl = this.$('#newImageUrl' + this.model.id).val();
 
-      this.model.set({name: newName, price: newPrice, image_url: newImageUrl});
-
-      this.model.save();
+      if(newName == null || (newPrice < 1 && newPrice != NaN) || newImageUrl == null ) {
+        alert("Enter everything you fucker");
+      } 
+      else {
+        this.model.set({name: newName, price: newPrice, image_url: newImageUrl});
+        this.model.save();
+      }
     }, 
 
     editDish: function() {
@@ -27,12 +31,13 @@
     }, 
 
     render: function() {
-      this.$el.html(this.template({dish: this.model.toJSON()}));
+      $(this.$el[0]).addClass("col-md-6");
+      this.$el.html(this.template({link: location.origin+"#dishes/"+this.model.id,dish: this.model.toJSON()}));
       return this;
     }
   });
 
-  var DishesView = Backbone.View.extend({
+var DishesView = Backbone.View.extend({
     el: "ul#dishList", 
     initialize: function() {
       this.listenTo(this.collection, "sync remove", this.render);
@@ -49,32 +54,71 @@
     }
   });
 
-  var CreateDishView = Backbone.View.extend({
+var CreateDishView = Backbone.View.extend({
     el: "#addDishForm", 
     events: {"click button#addNewDish": "createDish"},
-    initialize: function() {
-      Backbone.Validation.bind(this);
-    },
+    template: _.template($('#addForm').html()),
+    // initialize: function() {
+    //   Backbone.Validation.bind(this);
+    // },
 
     createDish: function() {
-
       var nameField = this.$("#newDishName");
       var priceField = this.$("#newDishPrice");
       var imageField = this.$("#newDishImage");
       var name = nameField.val();
       var price = priceField.val();
       var image_url = imageField.val();
+      if(name == null || (price < 1 && price != NaN) || image_url == null ) {
+        alert("Enter everything you fucker");
+      } 
+      else {
+        this.collection.create({name: name, price: price, image_url: image_url});
+        nameField.val("");
+        priceField.val("");
+        imageField.val("");
+      }
+        
+    }, 
 
-      this.collection.create({name: name, price: price, image_url: image_url});
-
-      nameField.val("");
-      priceField.val("");
-      imageField.val("");
+    render: function() {
+      this.$el.html(this.template({categories: categories.toJSON()}));
+    }, 
+    initialize: function() {
+      this.listenTo(categories, "sync remove", this.render);
     }
   });
 
+
+
+var CategoryView = Backbone.View.extend({
+    tagName: 'li', 
+    template: _.template($('#category').html()), 
+    render: function() {
+      debugger;
+      var categoryDishes = dishes.where({category_id: this.model.id});
+      console.log(categoryDishes);
+      this.$el.html(this.template({category: this.model.toJSON(), dishes: categoryDishes}));
+    }
+});
+
+var CategoriesView = Backbone.View.extend({
+  el: "ul#CategoryList", 
+  render: function() {
+    var categoriesUl = this.$el;
+    categoriesUl.html("");
+    //console.log(this);
+    this.collection.forEach(function(category) {
+      categoriesUl.append(new CategoryView({model: category}).render());
+    });
+      return this;
+    }
+});
   
+
+
   new CreateDishView({collection: dishes});
+
 
 
 

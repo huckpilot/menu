@@ -29,6 +29,10 @@
 //Everything above this is reference
 //////////////////////////////////////////////////
 
+var CategoriesCollection = Backbone.Collection.extend({
+  model: Category, 
+  url: '/categories'
+});
 
 var DishesCollection = Backbone.Collection.extend({
   model: Dish, 
@@ -36,6 +40,6 @@ var DishesCollection = Backbone.Collection.extend({
 });
 
 var dishes = new DishesCollection();
-//dishes.fetch();
 
+var categories = new CategoriesCollection();
 

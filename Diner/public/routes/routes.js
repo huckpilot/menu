@@ -7,10 +7,14 @@ var DishesRoutes = Backbone.Router.extend({
     "dishes": "allDishes"
   }, 
   showDish: function(anId){
+    // alert('hi!')
     var thisDish = new Dish({id: anId})
+    //console.log(thisDish)
     thisDish.fetch({
       success: function(){
-        new DishView({model: thisDish}).render();
+        //console.log(thisDish)
+        $('#contentArea').html(new DishView({model: thisDish}).render().$el);
+        $("#dishList").html("");
       }
     });
   }, 
@@ -18,6 +22,11 @@ var DishesRoutes = Backbone.Router.extend({
   allDishes: function() {
     dishes.fetch({
       success: function(model, response) {
+          categories.fetch({
+            success: function(model, response) {
+              new CategoriesView({collection: categories}).render();
+            }
+          });
         // debugger;
         // var $newPetLink = $("#newDishLink");
         // var $aNew = $("<a />", {name : "link", href : "#dishes/new",text : "Add New Dish"});

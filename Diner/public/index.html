@@ -3,24 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Diner</title>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
-</head>
-<body>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-  <!-- ========= -->
-  <!-- HTML -->
-  <!-- ========= -->
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+</head>
+<!-- ========= -->
+<!-- HTML -->
+<!-- ========= -->
+<body id="bg">
+  <div class="container-fluid">
   <section id="dinerapp">
-    <header id="header">
-      <h1>Diner</h1>
-      <div id = "addDishForm">
-        <input type="text" id="newDishName" placeholder="Add dish to menu" autofocus>
-        <input type="number" id="newDishPrice" placeholder="Add dish menu price">
-        <input type="text" id="newDishImage" placeholder="Add dish image">
+    <header id="header" class="row">
+      <div id="logo" class="col-md-3"><img src="./images/simp-moe.png"></div>
+        <div id = "addDishForm"></div>
+
+      <script type="text/template" id="addForm">
+        <input type="text" id="newDishName" class="input" placeholder="Add dish to menu">
+        <input type="number" id="newDishPrice" class="input" placeholder="Add dish menu price">
+        <input type="text" id="newDishImage" class="input" placeholder="Add dish image">
+
+        <select id="newCategory">
+        <% categories.forEach(function(category){ %>
+          <option value="<%= category.id %>"><%= category.name %></option>
+        <% }); %>
+        </select>
+
         <button id="addNewDish">add dish</button>
-      </div>
-     <div>
+      </script>
+     <div id="draggable" class="ui-widget-content">
         <a href="#/">Full Menu</a> 
         <a href="#/">Food category #1</a>
         <a href="#/">Food category #2</a>
@@ -28,26 +43,37 @@
         <a href="#/order">Your order</a>
       </div>
     </header>
-
-    <div>
-      <h5 id="newDishLink"></h5>
-      <ul id = "allDishes"></ul>
-      <div id="contentArea"></div>
-    </div>
-
+    <section>
+      <ul id="CategoryList"></ul>
+    </section>
     <section id="main">
       <ul id="dishList"></ul>
+    </section>
+        <section>
+      <div id="contentArea"></div>
     </section>
   </section>
 
   <!-- Templates -->
+
+  <script type="text/template" id="category">
+    <span class="view"> 
+      <h1>Hi</h1>
+      <div><%= category.name %></div>
+      <% dishes.forEach(function(dish) { %>
+        <%= dish.name %>
+      <% }); %>
+    </span>
+  </script>
   <script type="text/template" id="dishes">
     <span class="view">
-      <%= dish.name %> <%= dish.price %> <img src ="<%= dish.image_url %>">
-      <button class="editButton" value=<%= dish.name %>></button>
-      <button class="destroyButton">remove dish</button>
+      <div id="show">
+        <a href="<%= link %>"><%= dish.name %> <%= dish.price %> <div class="image"><img src ="<%= dish.image_url %>"></a></div>
+        <button class="editButton" value=<%= dish.name %>>edit dish</button>
+        <button class="destroyButton">remove dish</button>
+      </div>
     </span>
-    <span class="editDish" style = "display: none">
+    <span class="col-md-2 editDish" style = "display: none">
       <input type = "text" id = newName<%= dish.id %> placeholder="Change menu item" autofocus>
       <input type = "text" id = newPrice<%= dish.id %> placeholder="Change price" >
       <input type = "text" id = newImageUrl<%= dish.id %> placeholder="Add new dish image url" >
@@ -64,8 +90,12 @@
   <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
   <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.validation/0.11.3/backbone-validation-min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.validation/0.11.3/backbone-validation-min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/draggabilly/1.2.0/draggabilly.pkgd.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
 
   <!-- =============== -->
   <!-- Javascript code -->
@@ -74,6 +104,14 @@
     'use strict';
     // //alert("hey");
     var app = {}; // create namespace for our app
+    $(function() {
+      $( "#draggable" ).draggable();
+    });
+    $('#bg').mousemove(function(e) {
+    var x = (e.pageX * -1 / 5), y = (e.pageY * -1 / 5);
+    $(this).css('background-position', x + 'px ' + y + 'px');
+
+});
   </script>
 
   <!-- Backbone directories -->
@@ -81,5 +119,6 @@
   <script src = "./collections/collections.js"></script>
   <script src = "./views/views.js"></script>
   <script src = "./routes/routes.js"></script>  
+  </div>
 </body>
 </html>
